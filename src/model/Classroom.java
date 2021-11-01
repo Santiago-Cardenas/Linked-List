@@ -44,6 +44,7 @@ public class Classroom {
 
     public int deleteStudent(String name) {
         int qtDeleted = 0;
+        int size=0;
         if (firstStudent == lastStudent) {
             if (firstStudent.getName().equalsIgnoreCase(name)) {
                 firstStudent = null;
@@ -51,41 +52,49 @@ public class Classroom {
                 qtDeleted++;
             }
         } else if(firstStudent!=lastStudent){
-            Student ciclePrev=firstStudent;
-            Student cicleNext=firstStudent.getNext();
+            Student cicleSize=firstStudent;
+
             do {
+                size++;
+                cicleSize=cicleSize.getNext();
+            }while(cicleSize!=firstStudent);
+
+            for(int i=0; i<size;i++) {
                 if (firstStudent.getName().equalsIgnoreCase(name)) {
                     firstStudent = firstStudent.getNext();
                     firstStudent.setLast(lastStudent);
                     lastStudent.setNext(firstStudent);
                     qtDeleted++;
-                }
-                else if(lastStudent.getName().equalsIgnoreCase(name) && lastStudent!=null){
-                    lastStudent=lastStudent.getLast();
+                } else if (lastStudent.getName().equalsIgnoreCase(name) && lastStudent != null) {
+                    lastStudent = lastStudent.getLast();
                     lastStudent.setNext(firstStudent);
                     firstStudent.setLast(lastStudent);
                     qtDeleted++;
-                }
-                else {
+                } else {
                     Student prev = firstStudent;
                     Student next = firstStudent.getNext();
                     do {
-                        if (next.getName().equalsIgnoreCase(name)) {
-                            prev.setNext(next.getNext());
-                            next.getNext().setLast(prev);
-                            qtDeleted++;
+                        if (next.getNext() != null) {
+                            if (next.getName().equalsIgnoreCase(name)) {
+                                prev.setNext(next.getNext());
+                                next.getNext().setLast(prev);
+                                next.setLast(null);
+                                next.setNext(null);
+                                qtDeleted++;
+                            } else {
+                                next = next.getNext();
+                            }
+                            prev = prev.getNext();
+                        } else {
+                            prev = firstStudent;
                         }
-                        prev = prev.getNext();
-                        next = next.getNext();
                     } while (prev != firstStudent);
                 }
-                ciclePrev=ciclePrev.getNext();
-                cicleNext=cicleNext.getNext();
-            }while(ciclePrev!=firstStudent);
+            }
+
         }
         return qtDeleted;
     }
-
 
     public String printStudents(){
         Student temp=firstStudent;

@@ -13,11 +13,11 @@ public class Main {
 
     public Main() {
         sc = new Scanner(System.in);
-        Student newStudent = new Student("0","Luis");   //cola
+        Student newStudent = new Student("3","Luis");   //cola
         classroom= new Classroom("A-1",1,newStudent);
-        classroom.addStudent(new Student("1","Santiago"));
         classroom.addStudent(new Student("2","Santiago"));
-        classroom.addStudent(new Student("3","Pedro")); //cabeza
+        classroom.addStudent(new Student("1","Santiago"));
+        classroom.addStudent(new Student("0","Pedro")); //cabeza
         System.out.println(classroom.getFirstStudent().toString());
         exit=false;
     }
