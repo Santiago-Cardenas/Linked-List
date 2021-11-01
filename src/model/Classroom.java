@@ -42,6 +42,30 @@ public class Classroom {
         }
     }
 
+    public void addStudentInOrder(Student newStudent){
+        if(firstStudent ==null){
+            firstStudent=newStudent;
+            lastStudent=newStudent;
+        }
+        else if(firstStudent==lastStudent){
+            System.out.println("Entro al else if");
+            lastStudent=newStudent;
+            firstStudent.setNext(lastStudent);
+            firstStudent.setLast(lastStudent);
+            lastStudent.setNext(firstStudent);
+            lastStudent.setLast(firstStudent);
+        }
+        else {
+            System.out.println("Entro al else if segundo");
+            Student temp=lastStudent;
+            lastStudent=newStudent;
+            newStudent.setNext(firstStudent);
+            newStudent.setLast(temp);
+            firstStudent.setLast(newStudent);
+            temp.setNext(lastStudent);
+        }
+    }
+
     public int deleteStudent(String name) {
         int qtDeleted = 0;
         int size=0;
@@ -130,24 +154,6 @@ public class Classroom {
             } while (temp != lastStudent);
         }
         return msg;
-    }
-
-    public void addStudentInOrder(Student newStudent){
-        if(firstStudent ==null){
-            firstStudent=newStudent;
-            lastStudent=newStudent;
-        }
-        else{
-            if(firstStudent==lastStudent){
-                lastStudent=newStudent;
-                firstStudent.setNext(lastStudent);
-                newStudent.setNext(firstStudent);
-            }
-            else {
-                newStudent.setNext(firstStudent);
-                lastStudent.setNext(newStudent);
-            }
-        }
     }
 
     public String printStudentRecursivo(){
