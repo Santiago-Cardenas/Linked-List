@@ -156,17 +156,6 @@ public class Classroom {
         return msg;
     }
 
-    public String printStudentRecursivo(){
-        Student temp=firstStudent;
-        StringBuilder myString = new StringBuilder();
-        do{
-            System.out.println("entro");
-            myString.append(temp.toString());
-            temp=temp.getNext();
-        }while(temp!=firstStudent);
-        return myString.toString();
-    }
-
     public void printGeneral(){
 
     }
